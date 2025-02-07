@@ -1,15 +1,14 @@
+import gerarDiaDaSemana from "./gerarDiaDaSemana.js";
 const inputItem = document.getElementById("input-item");
-const botaoAdicionar = document.getElementById("adicionar-item");
 let contador = 0;
 
-botaoAdicionar.addEventListener("click", function(evento) {
-    evento.preventDefault(); // impede o comportamento padrão de um formulario
+function criarItemDaLista() {
+    
     if(inputItem.value ===  ""){
         alert("por favor, insira um item!");
         return;
     }
-
-    const listaDeCompras = document.getElementById("lista-de-compras");
+    
     const itemDaLista = document.createElement('li');
     const containerItemLista = document.createElement('div');
     containerItemLista.classList.add('lista-item-container');
@@ -25,30 +24,21 @@ inputCheckbox.addEventListener("click", function(){
         } else{
             nomeItem.style.textDecoration = "none";
         }
+    }
+)
 
-})
-
-    
     containerItemLista.appendChild(inputCheckbox);
     containerItemLista.appendChild(nomeItem);
+
     itemDaLista.appendChild(containerItemLista);
-
-    const diaDaSemana =  new Date().toLocaleDateString("pt-BR", {
-        weekday: "long"
-    })
-    const data = new Date().toLocaleDateString("pt-BR");
-    const hora = new Date().toLocaleTimeString("pt-BR", {
-        hour: "numeric",
-        minute: "numeric"
-    })
-
-    const dataCompleta = `${diaDaSemana} (${data} às ${hora})`;
+    const dataCompleta = gerarDiaDaSemana();
+   
     const itemData = document.createElement("p");
     itemData.innerText = dataCompleta;
     itemData.classList.add("texto-data");
-
     itemDaLista.appendChild(itemData);
-    listaDeCompras.appendChild(itemDaLista);
 
-    
-})
+    return itemDaLista;
+}
+
+export default criarItemDaLista;
